@@ -107,29 +107,6 @@ def find_min(weather_data):
     else:
         return ()
 
-    #below is what I did Saturday 24th Aug:
-    #if weather_data: 
-        #min_value = float (min(weather_data))
-        #for index, value in enumerate(weather_data):
-            #if value == min_value: 
-                #min_value_index=index
-        #return min_value, min_value_index
-        
-    #print (round(float(min_value),1))
-    #return_value =()
-    #count=0
-    #for index in range(len(weather_data)):
-        #print(index)
-        #if i == min_value:
-            #index_pos = count
-        #count=count+1
-     
-    #return_value=(min_value,index_pos)
-    #return return_value
-
-
-#weather_data=[]
-#print(find_min(weather_data))    
 
 
 def find_max(weather_data):
@@ -151,6 +128,7 @@ def find_max(weather_data):
 
 
 def generate_summary(weather_data):
+    
     """Outputs a summary for the given weather data.
 
     Args:
