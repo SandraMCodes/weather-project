@@ -129,6 +129,7 @@ def find_max(weather_data):
 
 def generate_summary(weather_data):
     
+    #combine string with a variable value
     """Outputs a summary for the given weather data.
 
     Args:
@@ -136,7 +137,58 @@ def generate_summary(weather_data):
     Returns:
         A string containing the summary information.
     """
-    pass
+    minValue = 0
+    maxValue = 0
+    minDate = ""
+    maxDate = ""
+    numberOfDays=len(weather_data)
+    sumLowTemp = 0
+    sumHighTemp = 0
+
+    for value in weather_data:
+        if minValue == 0: ##assign the first row of values as a beginning point
+            minValue = value[1]
+            maxValue = value[2]
+            minDate = value[0]
+            maxDate = value[0]
+        if minValue > value[1]: ##Check to see if each row is lower than the current minimum
+            minValue = value[1]
+            minDate = value[0]
+        if maxValue < value[2]: ##Check to see if each row is lower than the current maximum
+            maxValue = value[2] 
+            maxDate = value[0]
+        sumLowTemp = sumLowTemp+value[1] ## Sum the low values
+        sumHighTemp = sumHighTemp+value[2] ## Sum the high values
+    
+    finalMinDate = convert_date(minDate)
+    finalMaxDate = convert_date(maxDate)
+    finalMinTemp = str(convert_f_to_c(minValue))
+    finalMaxTemp = str(convert_f_to_c(maxValue))
+    averageLowTemp = str(convert_f_to_c(sumLowTemp/numberOfDays)) ##Calculate the average of low temps and convert from a float to a String
+    averageHighTemp = str(convert_f_to_c(sumHighTemp/numberOfDays)) ## Calculate the average of high temps and convert from a float to a String
+
+    ## Concatenate variables and strings together to make the required output.
+    summaryOutput = str(numberOfDays)+" Day Overview\n  The lowest temperature will be "+finalMinTemp+"°C, and will occur on "+finalMinDate+".\n"
+    summaryOutput = summaryOutput + "  The highest temperature will be "+finalMaxTemp+"°C, and will occur on "+finalMaxDate+".\n"
+    summaryOutput = summaryOutput + "  The average low this week is "+averageLowTemp+"°C.\n"
+    summaryOutput = summaryOutput + "  The average high this week is "+averageHighTemp+"°C.\n"
+
+    return summaryOutput
+
+    ##temperatures = [data[1] for data in weather_data]
+    ##mean_temp = calculate_mean(temperatures)
+    ##min_temp, min_temp_index = find_min(temperatures)
+    ##max_temp, max_temp_index = find_max(temperatures)
+
+    ##min_date = convert_date(weather_data[min_temp_index][0])
+    ##max_date = convert_date(weather_data[max_temp_index][0])
+
+    ##summary = (f"Weather Summary:\n"
+               ##f"Mean Temperature: {format_temperature(mean_temp)}\n"
+               ##f"Minimum Temperature: {format_temperature(min_temp)} on {min_date}\n"
+               ##f"Maximum Temperature: {format_temperature(max_temp)} on {max_date}")
+    
+    ##return summary
 
 
 def generate_daily_summary(weather_data):
@@ -147,4 +199,41 @@ def generate_daily_summary(weather_data):
     Returns:
         A string containing the summary information.
     """
-    pass
+    outputValue=""
+        
+    for value in weather_data:
+        minTempInC = convert_f_to_c(value[1]) 
+        maxTempInC = convert_f_to_c(value[2]) 
+        outputValue = outputValue + f"---- "+convert_date(value[0])+" ----\n  Minimum Temperature: "+str(minTempInC)+"°C\n  Maximum Temperature: "+str(maxTempInC)+"°C\n\n"
+        minTempInC = None
+        maxTempInC = None
+
+    return outputValue
+
+    ##daily_summaries = []
+    ##for day_data in weather_data:
+        ##date_str = convert_date(day_data[0])
+        ##temp_c = convert_f_to_c(day_data[1])
+        ##daily_summary = (f"Date: {date_str}\n"
+                         ##f"Temperature: {format_temperature(temp_c)}\n"
+                         ##f"Humidity: {day_data[2]}%")
+        ##daily_summaries.append(daily_summary)
+    
+    ##return "\n\n".join(daily_summaries)
+    
+
+##def main():
+    ##csv_file_path = 'weather_data.csv'
+    ##weather_data = load_data_from_csv(csv_file_path)
+    ##summary = generate_summary(weather_data)
+    ##print("Overall Weather Summary:")
+    ##print(summary)
+    ##print("\n" + "="*40 + "\n")
+    ##daily_summary = generate_daily_summary(weather_data)
+    ##print("Daily Weather Summaries:")
+    ##print(daily_summary)
+
+
+##if __name__ == "__main__":
+    ##main()
+
