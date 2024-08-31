@@ -18,7 +18,7 @@ def format_temperature(temp):
 
 def convert_date(iso_string):
 
-    # Get date into the isoformat
+   
     isoformat_date = datetime.isoformat
 
     isoformat_date = datetime.fromisoformat(iso_string)
@@ -146,19 +146,19 @@ def generate_summary(weather_data):
     sumHighTemp = 0
 
     for value in weather_data:
-        if minValue == 0: ##assign the first row of values as a beginning point
+        if minValue == 0: 
             minValue = value[1]
             maxValue = value[2]
             minDate = value[0]
             maxDate = value[0]
-        if minValue > value[1]: ##Check to see if each row is lower than the current minimum
+        if minValue > value[1]: 
             minValue = value[1]
             minDate = value[0]
-        if maxValue < value[2]: ##Check to see if each row is lower than the current maximum
+        if maxValue < value[2]: 
             maxValue = value[2] 
             maxDate = value[0]
-        sumLowTemp = sumLowTemp+value[1] ## Sum the low values
-        sumHighTemp = sumHighTemp+value[2] ## Sum the high values
+        sumLowTemp = sumLowTemp+value[1] 
+        sumHighTemp = sumHighTemp+value[2]
     
     finalMinDate = convert_date(minDate)
     finalMaxDate = convert_date(maxDate)
